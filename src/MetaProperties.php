@@ -39,18 +39,33 @@ class MetaProperties
         return $this;
     }
 
+    /**
+     * Defined the website language
+     * @param string $lang
+     * @return $this
+     */
     function lang(string $lang): MetaProperties
     {
         $this->_lang = $lang;
         return $this;
     }
 
+    /**
+     * Cover for image display
+     * @param string $cover
+     * @return $this
+     */
     function cover(string $cover): MetaProperties
     {
         $this->_cover = $cover;
         return $this;
     }
 
+    /**
+     * Author most of time used for twitter
+     * @param string $author
+     * @return $this
+     */
     function author(string $author): MetaProperties
     {
         $this->_author = $author;
@@ -82,6 +97,7 @@ class MetaProperties
     }
 
     /**
+     * website link page for redirection
      * @param string $link
      * @return $this
      */
@@ -103,7 +119,7 @@ class MetaProperties
     function follow(): MetaProperties
     {
         $this->_tags[] = 'follow';
-        $this->_tags = $this->_follow ? array_diff($this->_tags, ['nofollow']) : [];
+        $this->_tags = $this->_follow ? array_diff($this->_tags, ['nofollow']) : $this->_tags;
         $this->_follow = true;
         $this->_nofollow = false;
         return $this;
@@ -116,7 +132,7 @@ class MetaProperties
     function index(): MetaProperties
     {
         $this->_tags[] = 'index';
-        $this->_tags = $this->_index ? array_diff($this->_tags, ['noindex']) : [];
+        $this->_tags = $this->_index ? array_diff($this->_tags, ['noindex']) : $this->_tags;
         $this->_index = true;
         $this->_noindex = false;
         return $this;
@@ -129,7 +145,7 @@ class MetaProperties
     function nofollow(): MetaProperties
     {
         $this->_tags[] = 'nofollow';
-        $this->_tags = $this->_follow ? array_diff($this->_tags, ['follow']) : [];
+        $this->_tags = $this->_follow ? array_diff($this->_tags, ['follow']) : $this->_tags;
         $this->_nofollow = true;
         $this->_follow = false;
         return $this;
@@ -142,7 +158,7 @@ class MetaProperties
     function noIndex(): MetaProperties
     {
         $this->_tags[] = 'noindex';
-        $this->_tags = $this->_index ? array_diff($this->_tags, ['index']) : [];
+        $this->_tags = $this->_index ? array_diff($this->_tags, ['index']) : $this->_tags;
         $this->_noindex = true;
         $this->_index = false;
         return $this;
@@ -170,20 +186,27 @@ class MetaProperties
      */
     protected function openGraphMeta(): string
     {
+        $cover = <<<IMG
+            <meta property="og:image:secure_url" content="$this->_cover" />
+            <meta property="og:image:type" content="image/jpeg">
+            <!-- Size of image. Any size up to 300. Anything above 300px will not work in WhatsApp -->
+            <meta property="og:image:width" content="300">
+            <meta property="og:image:height" content="300">
+        IMG;
+        $link_exist=$this->_link?"<meta property=\"og:url\" content=\"$this->_link\" />":'';
+        $type_exist=$this->_link?"<meta property=\"og:type\" content=\"$this->_type\" />":'';
+        $cover_exist=$this->_cover?$cover:'';
+        $lang_exist=$this->_lang?"<meta property=\"og:local\" content=\"$this->_lang\" />":'';
         return <<<HTML
-                    <!-- Open Grap data-->
-                    <meta property="og:site_name" content="Doctawetu" />
-                    <meta property="og:title" content="$this->_title" />
-                    <meta property="og:description" content="$this->_description" />
-                    <meta property="og:url" content="$this->_link" />
-                    <meta property="og:type" content="$this->_type" />
-                    <meta property="og:image:secure_url" content="$this->_cover" />
-                    <meta property="og:local" content="$this->_lang" />
-                    <meta property="og:image:type" content="image/jpeg">
-                    <!-- Size of image. Any size up to 300. Anything above 300px will not work in WhatsApp -->
-                    <meta property="og:image:width" content="300">
-                    <meta property="og:image:height" content="300">
-                HTML;
+            <!-- Open Grap data-->
+            <meta property="og:site_name" content="Doctawetu" />
+            <meta property="og:title" content="$this->_title" />
+            <meta property="og:description" content="$this->_description" />
+            $link_exist
+            $type_exist
+            $cover_exist
+            $lang_exist
+        HTML;
     }
 
     /**
@@ -194,18 +217,22 @@ class MetaProperties
      */
     protected function twitterMeta(): string
     {
+        $link_exist=$this->_link?"<meta name=\"twitter:url\" content=\"$this->_link\" />":'';
+        $cover_exist=$this->_cover?"<meta name=\"twitter:image\" content=\"$this->_cover\" />":'';
+        $lang_exist=$this->_lang?"<meta name=\"twitter:local\" content=\"$this->_lang\" />":'';
+        $canonical_exist=$this->_canonical?"<meta name=\"twitter:site\" content=\"$this->_canonical\">":'';
+        $author_exist=$this->_author?"<meta name=\"twitter:creator\" content=\"$this->_author\">":'';
         return <<<HTML
-                    <!-- Twitter Card-->
-                    <meta name="twitter:card" content="summary" />
-                    <meta name="twitter:title" content="$this->_title" />
-                    <meta name="twitter:description" content="$this->_description" />
-                    <meta name="twitter:url" content="$this->_link" />
-                    <meta name="twitter:type" content="article" />
-                    <meta name="twitter:image" content="$this->_cover" />
-                    <meta name="twitter:local" content="$this->_lang" />
-                    <meta name="twitter:site" content="$this->_canonical">            
-                    <meta name="twitter:creator" content="$this->_author">
-                HTML;
+                <meta name="twitter:card" content="summary" />
+                <meta name="twitter:title" content="$this->_title" />
+                <meta name="twitter:description" content="$this->_description" />
+                $link_exist
+                $cover_exist
+                $lang_exist
+                $canonical_exist
+                $author_exist
+                <meta name="twitter:type" content="article" />
+            HTML;
     }
 
     /**
@@ -214,20 +241,23 @@ class MetaProperties
      */
     function build(): string
     {
-        $tags = implode(',', $this->_tags);
-        $open_graph_meta = $this->openGraphMeta();
-        $twitter_meta = $this->twitterMeta();
-        return <<<META
-                    <!-- Facebook Meta Data -->
-                    $open_graph_meta
-                    <!-- Twitter Metta Data -->
-                    $twitter_meta
-                    <!-- Extra information -->
-                    <meta name="mobile-web-app-capable" content="yes" />
-                    <meta name="apple-mobile-web-app-title" content="yes" />
-                    <meta name="robots" content="$tags">
-                    <link rel="canonical" href="$this->_canonical" />
-                META;
+        if($this->_title && $this->_description){
+            $tags = implode(',', $this->_tags);
+            $open_graph_meta = $this->openGraphMeta();
+            $twitter_meta = $this->twitterMeta();
+            $tags_exist=count($this->_tags)>1?"<meta name=\"robots\" content=\"$tags\">":"";
+            $canonical_exist=count($this->_tags)>1?"<link rel=\"canonical\" href=\"$this->_canonical\">":"";
+            return <<<META
+                $open_graph_meta
+                <!-- Twitter Metta Data -->
+                $twitter_meta
+                <!-- Extra information -->
+                <meta name="mobile-web-app-capable" content="yes" />
+                <meta name="apple-mobile-web-app-title" content="yes" />
+                $tags_exist
+                $canonical_exist
+            META;
+        }
     }
 
     function structure(): array
