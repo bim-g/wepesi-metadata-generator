@@ -263,13 +263,13 @@ class MetaProperties
     function structure(): array
     {
         $structure = [];
-        $this->_title ? ($structure['title'] = $this->_title):[];
-        $this->_description ? ($structure['description'] = $this->_description):[];
-        $this->_link ? ($structure['link'] = $this->_link):[];
-        $this->_cover ? ($structure['cover'] = $this->_cover):[];
-        $this->_tags ? ($structure['tags'] = $this->_tags):[];
-        $this->_type ? ($structure['type'] = $this->_type):[];
-        $this->_canonical ? ($structure['canonical'] = $this->_canonical):[];
+        $this->_title ? ($structure['title'] = $this->_title):null;
+        $this->_description ? ($structure['description'] = $this->_description):null;
+        $this->_link ? ($structure['link'] = $this->_link):null;
+        $this->_cover ? ($structure['cover'] = $this->_cover):null;
+        $this->_tags ? ($structure['tags'] = $this->_tags):null;
+        $this->_type ? ($structure['type'] = $this->_type):null;
+        $this->_canonical ? ($structure['canonical'] = $this->_canonical):null;
         return $structure;
     }
 }
