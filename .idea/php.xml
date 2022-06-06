@@ -64,7 +64,7 @@
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />
   <component name="PhpUnit">
     <phpunit_settings>
-      <PhpUnitSettings load_method="PHPUNIT_PHAR" custom_loader_path="C:/wamp/bin/php/php7.4.23/zend_ext/php_xdebug-3.0.4-7.4-vc15-x86_64.dll" phpunit_phar_path="$PROJECT_DIR$/phpunit.phar" />
+      <PhpUnitSettings custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" phpunit_phar_path="C:/phpunit/phpunit.phar" />
     </phpunit_settings>
   </component>
 </project>
