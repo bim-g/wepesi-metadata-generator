@@ -35,9 +35,6 @@
   "support": {
     "email": "ibmussafb@gmail.com",
     "issues": "https://github.com/bim-g/wepesi-metadata-generator/issues",
-    "forum": "https://github.com/bim-g/wepesi-metadata-generator/issues",
-    "wiki": "https://github.com/bim-g/wepesi-metadata-generator/issues",
-    "source": "https://github.com/bim-g/wepesi-metadata-generator",
-    "docs": "https://github.com/bim-g/wepesi-metadata-generator"
+    "forum": "https://github.com/bim-g/wepesi-metadata-generator/issues"
   }
 }

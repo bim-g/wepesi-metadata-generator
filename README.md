@@ -239,6 +239,22 @@ checkout the would be the output for both example
 <meta name="robots" content="noindex, nofollow"> Means not to index or not to follow this webpage.
 ```
 
+#### `keyword` method
+
+It’s used to add keyword witch will be help for the search engine to easyly map your website.
+It take parameter as string if you have one keyword, by in other way u can pass an array with multiple keyword
+```php
+    $structure= \Wepesi\MetaData::generate()
+                ->title("Welcom To our Article")
+                ->descriptions("About Description of the article")                
+                ->keyword(["HTML","CSS","JavaScript"])
+                ->structure();
+    //array(1) {
+    //  ["title"]=>"Welcom To our Article",
+    //  ["descriptions"]=>"About Description of the article",
+    //  ["keyword"]=>["HTML","CSS","JavaScript"]
+    // }
+```
 #### `canonical` method
 
 It’s used to indicate that there are other versions of this webpage. By implementing the canonical tag in the code, your
