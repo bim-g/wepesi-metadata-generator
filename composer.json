@@ -1,41 +1,46 @@
 {
-    "name": "wepesi/metadata",
-    "description": "generate a metadata for your web page",
-    "type": "library",
-    "require": {
-        "php": ">=7.4"
-    },
-    "prefer-stable": true,
-    "homepage": "https://github.com/bim-g/wepesi-metadata-generator",
-    "keywords": ["metadata","web metadata","web app metadata","wepesi-metadata"],
-    "license": "Apache-2.0",
-    "support":{
-        "email": "ibmussafb@gmail.com"
-    } ,
-    "autoload": {
-        "psr-4": {
-            "Wepesi\\": "src/",
-            "Test\\": "test/"
-        }
-    },
-    "minimum-stability": "dev",
-    "authors": [
-        {
-            "name": "bim-g",
-            "email": "ibmussafb@gmail.com",
-            "role": "Develloper"
-        }
-    ],
-    "require-dev": {
-        "phpunit/phpunit": "^9.5",
-        "spatie/phpunit-watcher": "^1.23"
-    },
-    "support": {
-        "email": "ibmussafb@gmail.com",
-        "issues": "https://github.com/bim-g/wepesi-metadata-generator/issues",
-        "forum": "https://github.com/bim-g/wepesi-metadata-generator/issues",
-        "wiki": "https://github.com/bim-g/wepesi-metadata-generator/issues",
-        "source": "https://github.com/bim-g/wepesi-metadata-generator",
-        "docs": "https://github.com/bim-g/wepesi-metadata-generator"
+  "name": "wepesi/metadata",
+  "description": "generate a metadata for your web page",
+  "type": "library",
+  "require": {
+    "php": ">=7.4"
+  },
+  "prefer-stable": true,
+  "homepage": "https://github.com/bim-g/wepesi-metadata-generator",
+  "keywords": [
+    "metadata",
+    "web metadata",
+    "web app metadata",
+    "wepesi-metadata"
+  ],
+  "license": "Apache-2.0",
+  "support": {
+    "email": "ibmussafb@gmail.com"
+  },
+  "autoload": {
+    "psr-4": {
+      "Wepesi\\": "src/",
+      "Test\\": "test/"
     }
+  },
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "bim-g",
+      "email": "ibmussafb@gmail.com",
+      "role": "Develloper"
+    }
+  ],
+  "require-dev": {
+    "phpunit/phpunit": "^9.5",
+    "spatie/phpunit-watcher": "^1.23"
+  },
+  "support": {
+    "email": "ibmussafb@gmail.com",
+    "issues": "https://github.com/bim-g/wepesi-metadata-generator/issues",
+    "forum": "https://github.com/bim-g/wepesi-metadata-generator/issues",
+    "wiki": "https://github.com/bim-g/wepesi-metadata-generator/issues",
+    "source": "https://github.com/bim-g/wepesi-metadata-generator",
+    "docs": "https://github.com/bim-g/wepesi-metadata-generator"
+  }
 }

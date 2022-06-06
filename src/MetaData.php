@@ -13,17 +13,16 @@ class MetaData
 {
     static function generate()
     {
-        return new class () extends MetaData
-        {
+        return new class () extends MetaData {
             private ?string $_title = null;
             private ?string $_canonical = null;
-            private ?string $_lang;
+            private ?string $_lang=null;
             private ?string $_cover = null;
             private ?string $_link = null;
             private ?string $_author = null;
             private ?string $_type = null;
             private ?string $_description = null;
-            private array $_tags = [];
+            private array $_tags = [], $_keyword = [];
             private bool $_follow, $_index, $_noindex, $_nofollow;
 
             /**
@@ -32,7 +31,6 @@ class MetaData
             function __construct()
             {
                 $this->_follow = $this->_index = $this->_noindex = $this->_nofollow = false;
-                $this->_lang = 'En';
             }
 
             /**
@@ -135,6 +133,17 @@ class MetaData
             }
 
             /**
+             * Define keywords for search engines. eg: HTML,css,JavaScript
+             * @param $keyword
+             * @return MetaData
+             */
+            function keyword($keyword): MetaData
+            {
+                $this->_keyword = is_array($keyword) ? $keyword : [$keyword];
+                return $this;
+            }
+
+            /**
              * 'INDEX': The search engine crawler will index the whole webpage.
              * @return $this
              */
@@ -196,26 +205,25 @@ class MetaData
             protected function openGraphMeta(): string
             {
                 $cover = <<<IMG
-            <meta property="og:image:secure_url" content="$this->_cover" />
-            <meta property="og:image:type" content="image/jpeg">
-            <!-- Size of image. Any size up to 300. Anything above 300px will not work in WhatsApp -->
-            <meta property="og:image:width" content="300">
-            <meta property="og:image:height" content="300">
-        IMG;
+                    <meta property="og:image:secure_url" content="$this->_cover" />
+                    <meta property="og:image:type" content="image/jpeg">
+                    <!-- Size of image. Any size up to 300. Anything above 300px will not work in WhatsApp -->
+                    <meta property="og:image:width" content="300">
+                    <meta property="og:image:height" content="300">
+                IMG;
                 $link_exist = $this->_link ? "<meta property=\"og:url\" content=\"$this->_link\" />" : '';
                 $type_exist = $this->_link ? "<meta property=\"og:type\" content=\"$this->_type\" />" : '';
                 $cover_exist = $this->_cover ? $cover : '';
                 $lang_exist = $this->_lang ? "<meta property=\"og:local\" content=\"$this->_lang\" />" : '';
                 return <<<HTML
-            <!-- Open Grap data-->
-            <meta property="og:site_name" content="Doctawetu" />
-            <meta property="og:title" content="$this->_title" />
-            <meta property="og:description" content="$this->_description" />
-            $link_exist
-            $type_exist
-            $cover_exist
-            $lang_exist
-        HTML;
+                    <meta property="og:site_name" content="Doctawetu" />
+                    <meta property="og:title" content="$this->_title" />
+                    <meta property="og:description" content="$this->_description" />
+                    $link_exist
+                    $type_exist
+                    $cover_exist
+                    $lang_exist
+                HTML;
             }
 
             /**
@@ -229,8 +237,7 @@ class MetaData
                 $link_exist = $this->_link ? "<meta name=\"twitter:url\" content=\"$this->_link\" />" : '';
                 $cover_exist = $this->_cover ? "<meta name=\"twitter:image\" content=\"$this->_cover\" />" : '';
                 $lang_exist = $this->_lang ? "<meta name=\"twitter:local\" content=\"$this->_lang\" />" : '';
-                $canonical_exist = $this->_canonical ? "<meta name=\"twitter:site\" content=\"$this->_canonical\">" : '';
-                $author_exist = $this->_author ? "<meta name=\"twitter:creator\" content=\"$this->_author\">" : '';
+                $canonical_exist = $this->_canonical ? "<meta name=\"twitter:site\" content=\"$this->_canonical\">" : null;
                 return <<<HTML
                 <meta name="twitter:card" content="summary" />
                 <meta name="twitter:title" content="$this->_title" />
@@ -239,7 +246,6 @@ class MetaData
                 $cover_exist
                 $lang_exist
                 $canonical_exist
-                $author_exist
                 <meta name="twitter:type" content="article" />
             HTML;
             }
@@ -252,19 +258,26 @@ class MetaData
             {
                 if ($this->_title && $this->_description) {
                     $tags = implode(',', $this->_tags);
+                    $keyword = implode(",", $this->_keyword);
                     $open_graph_meta = $this->openGraphMeta();
                     $twitter_meta = $this->twitterMeta();
-                    $tags_exist = count($this->_tags) > 1 ? "<meta name=\"robots\" content=\"$tags\">" : '';
-                    $canonical_exist = count($this->_tags) > 1 ? "<link rel=\"canonical\" href=\"$this->_canonical\">" : '';
+                    $tags_exist = count($this->_tags) > 0 ? "<meta name=\"robots\" content=\"$tags\">" : '';
+                    $canonical_exist = $this->_canonical ? "<link rel=\"canonical\" href=\"$this->_canonical\">" : '';
+                    $keyword_exist = count($this->_keyword) > 0 ? "<link name=\"keywords\" href=\"$keyword\">" : '';
+                    $author_exist = $this->_author ? "<meta name=\"author\" content=\"$this->_author\">" : '';
                     return <<<META
-                $open_graph_meta
-                <!-- Twitter Metta Data -->
-                $twitter_meta
                 <!-- Extra information -->
                 <meta name="mobile-web-app-capable" content="yes" />
                 <meta name="apple-mobile-web-app-title" content="yes" />
+                $keyword_exist
+                $author_exist
                 $tags_exist
                 $canonical_exist
+                <!-- Open Grap data-->
+                $open_graph_meta
+                
+                <!-- Twitter Metta Data -->
+                $twitter_meta
             META;
                 }
             }
@@ -278,7 +291,8 @@ class MetaData
                 $this->_cover ? ($structure['cover'] = $this->_cover) : null;
                 $this->_tags ? ($structure['tags'] = $this->_tags) : null;
                 $this->_type ? ($structure['type'] = $this->_type) : null;
-                $this->_lang ? ($structure['lang'] = $this->_lang) : null;
+                $this->_lang? ($structure['lang'] = $this->_lang) : null;
+                count($this->_keyword) > 0 ? ($structure['keyword'] = $this->_keyword) : null;
                 $this->_canonical ? ($structure['canonical'] = $this->_canonical) : null;
                 return $structure;
             }
