@@ -8,19 +8,24 @@ use Wepesi\MetaData;
 
 class MetaDataTest extends TestCase
 {
-    function testMetaDataObject(){
+    function testMetaDataObject()
+    {
         $this->assertIsObject(MetaData::generate());
     }
-    function testMetaDataStructureIsArray(){
-        $meta=MetaData::generate()->structure();
+
+    function testMetaDataStructureIsArray()
+    {
+        $meta = MetaData::generate()->structure();
         $this->assertIsArray($meta);
     }
-    function testMetaDataStructureTitleArray(){
-        $meta=MetaData::generate()->title("Welcom Home")->structure();
-        $expected=[
-            "title"=> 'Welcom Home'
+
+    function testMetaDataStructureTitleArray()
+    {
+        $meta = MetaData::generate()->title("Welcom Home")->structure();
+        $expected = [
+            "title" => 'Welcom Home'
         ];
-        $this->assertArrayHasKey("title",$meta);
-        $this->assertEquals($expected,$meta);
+        $this->assertArrayHasKey("title", $meta);
+        $this->assertEquals($expected, $meta);
     }
 }
