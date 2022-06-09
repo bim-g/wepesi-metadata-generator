@@ -263,6 +263,7 @@ $structure= MetaData::generate()
                 ->structure();
     //array(1) {
     //  ["title"]=>"Welcome To our Article",
+
     //  ["descriptions"]=>"About Description of the article",
     //  ["keyword"]=>["HTML","CSS","JavaScript"]
     // }
