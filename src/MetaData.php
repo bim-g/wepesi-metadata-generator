@@ -292,6 +292,7 @@ class MetaData
                 $this->_tags ? ($structure['tags'] = $this->_tags) : null;
                 $this->_type ? ($structure['type'] = $this->_type) : null;
                 $this->_lang? ($structure['lang'] = $this->_lang) : null;
+                $this->_author? ($structure['author'] = $this->_author) : null;
                 count($this->_keyword) > 0 ? ($structure['keyword'] = $this->_keyword) : null;
                 $this->_canonical ? ($structure['canonical'] = $this->_canonical) : null;
                 return $structure;
