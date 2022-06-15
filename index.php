@@ -2,7 +2,7 @@
 require "vendor/autoload.php";
 use Wepesi\MetaData;
 
-$meta= MetaData::generate()
+$meta= MetaData::structure()
     ->title('Welcom Home')
     ->descriptions('Test MetaData')
     ->lang('fr')

@@ -7,56 +7,26 @@ static method that give u the possibility to access all the methode defined.
 
 ```php
     use Wepesi\MetaData;
-    $meta = MetaData::generate();
+    $meta = MetaData::structure();
 ```
 
 To get a structure of data to be display call the `structure` method, it will return an array object of field generated
 et to have build to be display call the `build` method.
 
-* Structure & Build In case there is no element defined if will return en empty array in case of structure methode and
+* `generate` & `build` In case there is no element defined if will return en empty array in case of structure methode and
   a metadata without information. No `title`,`description`.
 
+```php
+  use Wepesi\MetaData;
+  MetaData::structure()->generate();
+  /**
+      array(0) {
+      }
+    **/
 
-```php 
-    use Wepesi\MetaData;
-    $structure= MetaData::generate()->structure()
-    //array(0) {
-    //}
-
-    $build= MetaData::generate()->build()
-    /**
-        <!-- Open Grap data-->
-    <meta property="og:site_name" content="Doctawetu" />
-    <meta property="og:title" content="" />
-    <meta property="og:description" content="" />
-    <meta property="og:url" content="" />
-    <meta property="og:type" content="" />
-    <meta property="og:image:secure_url" content="" />
-    <meta property="og:local" content="En" />
-    <meta property="og:image:type" content="image/jpeg">
-    <!-- Size of image. Any size up to 300. Anything above 300px will not work in WhatsApp -->
-    <meta property="og:image:width" content="300">
-    <meta property="og:image:height" content="300">
-    <!-- Twitter Metta Data -->
-        <!-- Twitter Card-->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="" />
-    <meta name="twitter:description" content="" />
-    <meta name="twitter:url" content="" />
-    <meta name="twitter:type" content="article" />
-    <meta name="twitter:image" content="" />
-    <meta name="twitter:local" content="En" />
-    <meta name="twitter:site" content="">
-    <meta name="twitter:creator" content="">
-    <!-- Extra information -->
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-title" content="yes" />
-    <meta name="robots" content="">
-    <link rel="canonical" href="" />"
-    */
 ```
 
-## Implementation
+## Description
 
 To build a useful metadata, method are well design to help no struggle with it.
 
@@ -67,10 +37,12 @@ visitors because they appear in the search engine results page (SERP) and in bro
 
 ```php
     use Wepesi\MetaData;
-    $structure= MetaData::generate()->title("Welcome To Wepesi")->structure();
-    //array(1) {
-    //  ["title"]=>"Welcome To Wepesi"
-    //}
+    $structure= MetaData::structure()->title("Welcome To Wepesi")->generate();
+    /**
+    array(1) {
+        ["title"]=>"Welcome To Wepesi"
+    }
+    */
 ```
 
 #### `lang` method
@@ -79,14 +51,16 @@ A meta lang is an HTML element that help to set the language of the webpage.
 
 ```php
     use Wepesi\MetaData;
-    $structure= MetaData::generate()
+    $structure= MetaData::structure()
                 ->title("Welcome To Wepesi")
                 ->lang("fr")
-                ->structure();
-    //array(1) {
-    //  ["title"]=>"Welcome To Wepesi"
-    //  ["lang"]=>"fr"
-    // }
+                ->generate();
+    /**
+    array(1) {
+      ["title"]=>"Welcome To Wepesi"
+      ["lang"]=>"fr"
+    }
+    */
 ```
 
 #### `cover` method
@@ -96,11 +70,11 @@ are `jpg` and `png`.
 
 ```php
     use Wepesi\MetaData;
-$structure= MetaData::generate()
+$structure= MetaData::structure()
                 ->title("Welcome To Wepesi")
                 ->lang("en")
                 ->cover("https://www.domaine.com/cover.jpg")
-                ->structure();
+                ->generate();
     //array(1) {
     //  ["title"]=>"Welcome To Wepesi"
     //  ["lang"]=>"en"
@@ -114,10 +88,10 @@ A meta author is an HTML element that help to provide more detail about the auth
 
 ```php
     use Wepesi\MetaData;
-$structure= MetaData::generate()
+$structure= MetaData::structure()
                 ->title("Welcome To Wepesi")
                 ->author("Wepesi.")
-                ->structure();
+                ->generate();
     //array(1) {
     //  ["title"]=>"Welcome To Wepesi"
     //  ["author"]=>"Wepesi"
@@ -131,12 +105,12 @@ description in search results below your title tag.
 
 ```php
     use Wepesi\MetaData;
-$structure= MetaData::generate()
+$structure= MetaData::structure()
                 ->title("Welcome To Wepesi")
                 ->descriptions("Search engines typically show the meta description in search results below your title tag.")
                 ->lang("fr")
                 ->cover("https://www.domaine.com/cover.jpg")
-                ->structure();
+                ->generate();
     //array(1) {
     //  ["title"]=>"Welcome To Wepesi",
     //  ["descriptions"]=>"Search engines typically show the meta description in search results below your title tag.",
@@ -152,12 +126,12 @@ The type help to define whether it's about an `article` or `website` or a `blog`
 
 ```php
     use Wepesi\MetaData;
-$structure= MetaData::generate()
+$structure= MetaData::structure()
                 ->title("Welcome To Wepesi")
                 ->descriptions("Search engines typically show the meta description in search results below your title tag.")
                 ->lang("sw")
                 ->type("article")
-                ->structure();
+                ->generate();
     //array(1) {
     //  ["title"]=>"Welcome To Wepesi",
     //  ["descriptions"]=>"Search engines typically show the meta description in search results below your title tag.",
@@ -173,14 +147,14 @@ article you should provide the link of the blog post, to help reach directly to 
 
 ```php
     use Wepesi\MetaData;
-$structure= MetaData::generate()
+$structure= MetaData::structure()
                 ->title("Welcome To our Article")
                 ->descriptions("Description of the article")
                 ->lang("sw")
                 ->type("article")
                 ->link("https://www.domaine.com/article/welcom-to-wepesi")
                 ->cover("https://www.domaine.com/article-cover/cover.jpg")
-                ->structure();
+                ->generate();
     //array(1) {
     //  ["title"]=>"Welcome To our Article",
     //  ["descriptions"]=>"Description of the article",
@@ -204,7 +178,7 @@ Oly 2 Robots tags can be used
 
 ```php
     use Wepesi\MetaData;
-$structure= MetaData::generate()
+$structure= MetaData::structure()
                 ->title("Welcome To our Article")
                 ->descriptions("About Description of the article")
                 ->lang("sw")
@@ -213,7 +187,7 @@ $structure= MetaData::generate()
                 ->cover("https://www.domaine.com/article-cover/cover.jpg")
                 ->index()
                 ->follow()
-                ->structure();
+                ->generate();
     //array(1) {
     //  ["title"]=>"Welcome To our Article",
     //  ["descriptions"]=>"About Description of the article",
@@ -229,12 +203,12 @@ in case you don't need to index and follow the pages use:
 
 ```php
     use Wepesi\MetaData;
-$structure= MetaData::generate()
+$structure= MetaData::structure()
                 ->title("Welcome To our Article")
                 ->descriptions("About Description of the article")                
                 ->noindex()
                 ->nofollow()
-                ->structure();
+                ->generate();
     //array(1) {
     //  ["title"]=>"Welcome To our Article",
     //  ["descriptions"]=>"About Description of the article",
@@ -254,13 +228,14 @@ checkout they would be the output for both example
 
 It’s used to add keyword witch will be help for the search engine to easily map your website.
 It takes parameter as string if you have one keyword, by in other way u can pass an array with multiple keyword
+
 ```php
     use Wepesi\MetaData;
-$structure= MetaData::generate()
+$structure= MetaData::structure()
                 ->title("Welcome To our Article")
                 ->descriptions("About Description of the article")                
                 ->keyword(["HTML","CSS","JavaScript"])
-                ->structure();
+                ->generate();
     //array(1) {
     //  ["title"]=>"Welcome To our Article",
 
@@ -275,11 +250,11 @@ website tells search engines that this URL is the main page and that the engines
 
 ```php
     use Wepesi\MetaData;
-$structure= MetaData::generate()
+$structure= MetaData::structure()
                 ->title("Welcome To our Article")
                 ->descriptions("About Description of the article")                
                 ->canonical("https://www.domaine.com")
-                ->structure();
+                ->generate();
     //array(1) {
     //  ["title"]=>"Welcome To our Article",
     //  ["descriptions"]=>"About Description of the article",
@@ -293,7 +268,7 @@ The build method will help to generate the metadata tag to be display in your he
 
 ```php
     use Wepesi\MetaData;
-    $meta= MetaData::generate()
+    $meta= MetaData::structure()
             ->title("Welcome To our Article")
             ->descriptions("About Description of the article")
             ->lang("sw")

@@ -11,7 +11,7 @@ namespace Wepesi;
  */
 class MetaData
 {
-    static function generate()
+    static function structure()
     {
         return new class () extends MetaData {
             private ?string $_title = null;
@@ -282,7 +282,7 @@ class MetaData
                 }
             }
 
-            function structure(): array
+            function generate(): array
             {
                 $structure = [];
                 $this->_title ? ($structure['title'] = $this->_title) : null;
