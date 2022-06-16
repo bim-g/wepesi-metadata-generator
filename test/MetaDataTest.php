@@ -10,19 +10,19 @@ class MetaDataTest extends TestCase
 {
     function testMetaDataObject()
     {
-        $this->assertIsObject(MetaData::generate());
+        $this->assertIsObject(MetaData::structure());
         $this->assertIsObject(new MetaData());
     }
 
     function testMetaDataStructureIsArray()
     {
-        $meta = MetaData::generate()->structure();
+        $meta = MetaData::structure()->generate();
         $this->assertIsArray($meta);
     }
 
     function testMetaDataStructureHasArrayKeys()
     {
-        $meta = MetaData::generate()
+        $meta = MetaData::structure()
             ->title("Welcom Home")
             ->descriptions("Test MetaData")
             ->lang("fr")
@@ -60,7 +60,7 @@ class MetaDataTest extends TestCase
     }
     function testMetaDataStructureNotHaveArrayKeys()
     {
-        $meta = MetaData::generate()
+        $meta = MetaData::structure()
             ->title('Welcom Home')
             ->descriptions('Test MetaData')
             ->lang('fr')
@@ -97,7 +97,7 @@ class MetaDataTest extends TestCase
     }
     function testMetaHTMLMedataDataStructure()
     {
-        $meta = MetaData::generate()
+        $meta = MetaData::structure()
             ->title('Welcom Home')
             ->descriptions('Test MetaData')
             ->lang('fr')
@@ -147,7 +147,7 @@ class MetaDataTest extends TestCase
     }
     function testNotMetaHTMLMedataDataStructure()
     {
-        $meta = MetaData::generate()
+        $meta = MetaData::structure()
             ->title('Welcom Home')
             ->descriptions('Test MetaData')
             ->lang('fr')
