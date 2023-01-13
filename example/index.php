@@ -1,8 +1,9 @@
 <?php
-require "vendor/autoload.php";
 use Wepesi\MetaData;
 
-$meta= MetaData::structure()
+require __DIR__."/../vendor/autoload.php";
+
+$meta = MetaData::structure()
     ->title('Welcom Home')
     ->descriptions('Test MetaData')
     ->lang('fr')
@@ -14,7 +15,7 @@ $meta= MetaData::structure()
     ->keyword('metadata')
     ->index()
     ->build();
-var_dump($meta);
+// output
 /**
  * <!-- Extra information -->
  * <meta name='mobile-web-app-capable' content='yes' />
