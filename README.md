@@ -1,20 +1,25 @@
 # Wepesi Metadata generator
 
+Meta tags for SEO are key because they tell search engines what a page is about.
+Think of them as the first impression for all search engines.
+
+`Metadata generator` help you generate metadata for your web page with caring about the platform to be suppoterd. The oly thing is to provide information required.
+
 # Integration
 
-The integration is simple and does not require too much knowledge. The fist step required to is to call  `generate` a
-static method that give u the possibility to access all the methode defined.
+The fist step required to is to call  `structure` a
+static method that give u the possibility to access the method defined.
 
 ```php
     use Wepesi\MetaData;
     $meta = MetaData::structure();
 ```
 
-To get a structure of data to be display call the `structure` method, it will return an array object of field generated
-et to have build to be display call the `build` method.
+To get a structure of data to be display method are used 
+* `generate` :  will return an array object of field defined. 
+* `build` : generate a html meta tags that can be add to your web page,
 
-* `generate` & `build` In case there is no element defined if will return en empty array in case of structure methode and
-  a metadata without information. No `title`,`description`.
+In case there is no element defined if will return en empty array and the build will be without information. eg: No `title`,`description`.
 
 ```php
   use Wepesi\MetaData;
@@ -25,8 +30,9 @@ et to have build to be display call the `build` method.
     **/
 
 ```
+All known metadata method has been define for: `title`,`lang`,`cover`,`author`,`descriptions`,`type`,`link`,`follow`,`keyword`,`index`,`nofollow`,`noIndex`,`canonical`.
 
-## Description
+### Description
 
 To build a useful metadata, method are well design to help no struggle with it.
 
@@ -70,7 +76,7 @@ are `jpg` and `png`.
 
 ```php
     use Wepesi\MetaData;
-$structure= MetaData::structure()
+    $structure= MetaData::structure()
                 ->title("Welcome To Wepesi")
                 ->lang("en")
                 ->cover("https://www.domaine.com/cover.jpg")
@@ -88,7 +94,7 @@ A meta author is an HTML element that help to provide more detail about the auth
 
 ```php
     use Wepesi\MetaData;
-$structure= MetaData::structure()
+    $structure= MetaData::structure()
                 ->title("Welcome To Wepesi")
                 ->author("Wepesi.")
                 ->generate();
@@ -105,7 +111,7 @@ description in search results below your title tag.
 
 ```php
     use Wepesi\MetaData;
-$structure= MetaData::structure()
+    $structure= MetaData::structure()
                 ->title("Welcome To Wepesi")
                 ->descriptions("Search engines typically show the meta description in search results below your title tag.")
                 ->lang("fr")
@@ -126,7 +132,7 @@ The type help to define whether it's about an `article` or `website` or a `blog`
 
 ```php
     use Wepesi\MetaData;
-$structure= MetaData::structure()
+    $structure= MetaData::structure()
                 ->title("Welcome To Wepesi")
                 ->descriptions("Search engines typically show the meta description in search results below your title tag.")
                 ->lang("sw")
@@ -147,7 +153,7 @@ article you should provide the link of the blog post, to help reach directly to 
 
 ```php
     use Wepesi\MetaData;
-$structure= MetaData::structure()
+    $structure= MetaData::structure()
                 ->title("Welcome To our Article")
                 ->descriptions("Description of the article")
                 ->lang("sw")
@@ -178,7 +184,7 @@ Oly 2 Robots tags can be used
 
 ```php
     use Wepesi\MetaData;
-$structure= MetaData::structure()
+    $structure= MetaData::structure()
                 ->title("Welcome To our Article")
                 ->descriptions("About Description of the article")
                 ->lang("sw")
@@ -203,7 +209,7 @@ in case you don't need to index and follow the pages use:
 
 ```php
     use Wepesi\MetaData;
-$structure= MetaData::structure()
+    $structure= MetaData::structure()
                 ->title("Welcome To our Article")
                 ->descriptions("About Description of the article")                
                 ->noindex()
@@ -231,7 +237,7 @@ It takes parameter as string if you have one keyword, by in other way u can pass
 
 ```php
     use Wepesi\MetaData;
-$structure= MetaData::structure()
+    $structure= MetaData::structure()
                 ->title("Welcome To our Article")
                 ->descriptions("About Description of the article")                
                 ->keyword(["HTML","CSS","JavaScript"])
@@ -250,7 +256,7 @@ website tells search engines that this URL is the main page and that the engines
 
 ```php
     use Wepesi\MetaData;
-$structure= MetaData::structure()
+    $structure = MetaData::structure()
                 ->title("Welcome To our Article")
                 ->descriptions("About Description of the article")                
                 ->canonical("https://www.domaine.com")
@@ -282,7 +288,7 @@ The build method will help to generate the metadata tag to be display in your he
 
 ```html
     <!-- Open Graph data-->
-<meta property="og:site_name" content="Doctawetu"/>
+<meta property="og:site_name" content="Wepesi"/>
 <meta property="og:title" content="Welcome To our Article"/>
 <meta property="og:description" content="About Description of the article"/>
 <meta property="og:url" content="https://www.domaine.com/about"/>
