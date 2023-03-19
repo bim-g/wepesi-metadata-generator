@@ -85,7 +85,7 @@ class MetaData
      * @param string $description
      * @return $this
      */
-    function descriptions(string $description): MetaData
+    function description(string $description): MetaData
     {
         $this->description = $description;
         return $this;
@@ -197,9 +197,9 @@ class MetaData
 
     /**
      * Get the complete meta data to be displayed
-     * @return string
+     * @return string|null
      */
-    function build(): string
+    function generate(): ?string
     {
         if ($this->title && $this->description) {
             $tags = implode(',', $this->tags);
@@ -225,6 +225,7 @@ class MetaData
                 $twitter_meta
             META;
         }
+        return null;
     }
 
     /**
