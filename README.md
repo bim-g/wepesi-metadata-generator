@@ -308,7 +308,7 @@ It takes parameter as string if you have one keyword, by in other way u can pass
     //  ["title"]=>"Welcome To our Article",
 
     //  ["description"]=>"About Description of the article",
-    //  ["keyword"]=>["HTML","CSS","JavaScript"]
+    //  ["keywords"]=>["HTML","CSS","JavaScript"]
     // }
 ```
 
