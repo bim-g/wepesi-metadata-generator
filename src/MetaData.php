@@ -27,7 +27,7 @@ class MetaData
     /**
      * BundleMetaData constructor.
      */
-    function __construct()
+    public function __construct()
     {
         $this->follow = $this->index = $this->noindex = $this->nofollow = false;
     }
@@ -39,7 +39,7 @@ class MetaData
      * @param string $title
      * @return $this
      */
-    function title(string $title): MetaData
+    public function title(string $title): MetaData
     {
         $this->title = $title;
         return $this;
@@ -50,7 +50,7 @@ class MetaData
      * @param string $lang
      * @return $this
      */
-    function lang(string $lang): MetaData
+    public function lang(string $lang): MetaData
     {
         $this->lang = $lang;
         return $this;
@@ -61,7 +61,7 @@ class MetaData
      * @param string $cover
      * @return $this
      */
-    function cover(string $cover): MetaData
+    public function cover(string $cover): MetaData
     {
         $this->cover = $cover;
         return $this;
@@ -72,7 +72,7 @@ class MetaData
      * @param string $author
      * @return $this
      */
-    function author(string $author): MetaData
+    public function author(string $author): MetaData
     {
         $this->author = $author;
         return $this;
@@ -85,7 +85,7 @@ class MetaData
      * @param string $description
      * @return $this
      */
-    function description(string $description): MetaData
+    public function description(string $description): MetaData
     {
         $this->description = $description;
         return $this;
@@ -96,7 +96,7 @@ class MetaData
      * @param string $type
      * @return $this
      */
-    function type(string $type): MetaData
+    public function type(string $type): MetaData
     {
         $this->type = $type;
         return $this;
@@ -107,7 +107,7 @@ class MetaData
      * @param string $link
      * @return $this
      */
-    function link(string $link): MetaData
+    public function link(string $link): MetaData
     {
         $this->link = $link;
         return $this;
@@ -122,7 +122,7 @@ class MetaData
      * 'FOLLOW': The search engine crawler will follow all the links in that webpage,
      * @return $this
      */
-    function follow(): MetaData
+    public function follow(): MetaData
     {
         $this->tags[] = 'follow';
         $this->tags = $this->follow ? array_diff($this->tags, ['nofollow']) : $this->tags;
@@ -136,7 +136,7 @@ class MetaData
      * @param $keyword
      * @return MetaData
      */
-    function keyword($keyword): MetaData
+    public function keyword($keyword): MetaData
     {
         $this->keywords = is_array($keyword) ? $keyword : [$keyword];
         return $this;
@@ -146,7 +146,7 @@ class MetaData
      * 'INDEX': The search engine crawler will index the whole webpage.
      * @return $this
      */
-    function index(): MetaData
+    public function index(): MetaData
     {
         $this->tags[] = 'index';
         $this->tags = $this->index ? array_diff($this->tags, ['noindex']) : $this->tags;
@@ -159,7 +159,7 @@ class MetaData
      * 'NOFOLLOW': The search engine crawler will NOT follow the page and any links in that webpage.
      * @return $this
      */
-    function nofollow(): MetaData
+    public function nofollow(): MetaData
     {
         $this->tags[] = 'nofollow';
         $this->tags = $this->follow ? array_diff($this->tags, ['follow']) : $this->tags;
@@ -172,7 +172,7 @@ class MetaData
      * 'NOINDEX':The search engine crawler will NOT index that webpages.
      * @return $this
      */
-    function noIndex(): MetaData
+    public function noIndex(): MetaData
     {
         $this->tags[] = 'noindex';
         $this->tags = $this->index ? array_diff($this->tags, ['index']) : $this->tags;
@@ -189,7 +189,7 @@ class MetaData
      * @param string $canonical : https://doctawetu.com
      * @return $this
      */
-    function canonical(string $canonical): MetaData
+    public function canonical(string $canonical): MetaData
     {
         $this->canonical = $canonical;
         return $this;
@@ -199,7 +199,7 @@ class MetaData
      * Get the complete meta data to be displayed
      * @return string|null
      */
-    function generate(): ?string
+    public function generate(): ?string
     {
         if ($this->title && $this->description) {
             $tags = implode(',', $this->tags);
@@ -234,7 +234,7 @@ class MetaData
      *
      * @return string
      */
-    protected function openGraphMeta(): string
+    public function openGraphMeta(): string
     {
         $cover = <<<IMG
                     <meta property="og:image:secure_url" content="$this->cover" />
@@ -264,7 +264,7 @@ class MetaData
      *
      * @return string
      */
-    protected function twitterMeta(): string
+    public function twitterMeta(): string
     {
         $link_exist = $this->link ? "<meta name=\"twitter:url\" content=\"$this->link\" />" : '';
         $cover_exist = $this->cover ? "<meta name=\"twitter:image\" content=\"$this->cover\" />" : '';
