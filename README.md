@@ -6,7 +6,7 @@ Think of them as the first impression for all search engines.
 `Metadata generator` help you generate metadata for your web page with caring about the platform to be suppoterd. The oly thing is to provide information required.
 
 # Integration
-
+You can install via composer `composer require wepesi/metadata`.
 The fist step required to is to call  `structure` a
 static method that give u the possibility to access the method defined.
 
