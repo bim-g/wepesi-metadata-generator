@@ -166,7 +166,7 @@ A meta author is an HTML element that help to provide more detail about the auth
     // }
 ```
 
-#### `descriptions` method
+#### `description` method
 
 A meta description is an HTML element that sums up the content on your web page. Search engines typically show the meta
 description in search results below your title tag.
@@ -302,7 +302,7 @@ It takes parameter as string if you have one keyword, by in other way u can pass
     $structure= MetaData::build()
                 ->title("Welcome To our Article")
                 ->description("About Description of the article")                
-                ->keyword(["HTML","CSS","JavaScript"])
+                ->keywords(["HTML","CSS","JavaScript"])
                 ->toArray();
     //array(1) {
     //  ["title"]=>"Welcome To our Article",

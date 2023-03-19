@@ -23,6 +23,7 @@ class MetaData
     private array $tags = [];
     private array $keywords = [];
     private bool $follow, $index, $noindex, $nofollow;
+    private ?string $siteName = null;
 
     /**
      * BundleMetaData constructor.
@@ -50,6 +51,12 @@ class MetaData
     public function title(string $title): MetaData
     {
         $this->title = $title;
+        return $this;
+    }
+
+    public function siteName(string $siteName): MetaData
+    {
+        $this->siteName = $siteName;
         return $this;
     }
 
@@ -141,12 +148,12 @@ class MetaData
 
     /**
      * Define keywords for search engines. eg: HTML,css,JavaScript
-     * @param $keyword
+     * @param array ...$keywords
      * @return MetaData
      */
-    public function keyword($keyword): MetaData
+    public function keywords(string|array $keywords): MetaData
     {
-        $this->keywords = is_array($keyword) ? $keyword : [$keyword];
+        $this->keywords = is_array($keywords) ? $keywords : [$keywords];
         return $this;
     }
 
@@ -258,7 +265,7 @@ class MetaData
         $cover_exist = $this->cover ? $cover : '';
         $lang_exist = $this->lang ? "<meta property=\"og:local\" content=\"$this->lang\" />" : '';
         return <<<HTML
-                    <meta property="og:site_name" content="Doctawetu" />
+                    <meta property="og:site_name" content="$this->siteName" />
                     <meta property="og:title" content="$this->title" />
                     <meta property="og:description" content="$this->description" />
                     $link_exist
@@ -293,6 +300,15 @@ class MetaData
     }
 
     /**
+     * Convert the object to a json string
+     * @return string
+     */
+    function toJson(): string
+    {
+        return json_encode($this->toArray());
+    }
+
+    /**
      * Convert the object to an array
      * @return array
      */
@@ -307,7 +323,7 @@ class MetaData
             'type' => $this->type,
             'lang' => $this->lang,
             'author' => $this->author,
-            'keyword' => $this->keywords,
+            'keywords' => $this->keywords,
             'canonical' => $this->canonical
         ];
     }
