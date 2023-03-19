@@ -33,6 +33,14 @@ class MetaData
     }
 
     /**
+     *  Create a new instance of MetaData
+     */
+    public static function build(): MetaData
+    {
+        return new MetaData();
+    }
+
+    /**
      *The title tag is the first HTML element that specifies what your web page is about.
      * Title tags are important for SEO
      * and visitors because they appear in the search engine results page (SERP) and in browser tabs.
@@ -201,16 +209,15 @@ class MetaData
      */
     public function generate(): ?string
     {
-        if ($this->title && $this->description) {
-            $tags = implode(',', $this->tags);
-            $keyword = implode(",", $this->keywords);
-            $open_graph_meta = $this->openGraphMeta();
-            $twitter_meta = $this->twitterMeta();
-            $tags_exist = count($this->tags) > 0 ? "<meta name=\"robots\" content=\"$tags\">" : '';
-            $canonical_exist = $this->canonical ? "<link rel=\"canonical\" href=\"$this->canonical\">" : '';
-            $keyword_exist = count($this->keywords) > 0 ? "<link name=\"keywords\" href=\"$keyword\">" : '';
-            $author_exist = $this->author ? "<meta name=\"author\" content=\"$this->author\">" : '';
-            return <<<META
+        $tags = implode(',', $this->tags);
+        $keyword = implode(",", $this->keywords);
+        $open_graph_meta = $this->openGraphMeta();
+        $twitter_meta = $this->twitterMeta();
+        $tags_exist = count($this->tags) > 0 ? "<meta name=\"robots\" content=\"$tags\">" : '';
+        $canonical_exist = $this->canonical ? "<link rel=\"canonical\" href=\"$this->canonical\">" : '';
+        $keyword_exist = count($this->keywords) > 0 ? "<link name=\"keywords\" href=\"$keyword\">" : '';
+        $author_exist = $this->author ? "<meta name=\"author\" content=\"$this->author\">" : '';
+        return <<<META
                 <!-- Extra information -->
                 <meta name="mobile-web-app-capable" content="yes" />
                 <meta name="apple-mobile-web-app-title" content="yes" />
@@ -224,8 +231,6 @@ class MetaData
                 <!-- Twitter Metta Data -->
                 $twitter_meta
             META;
-        }
-        return null;
     }
 
     /**
@@ -234,7 +239,7 @@ class MetaData
      *
      * @return string
      */
-    public function openGraphMeta(): string
+    private function openGraphMeta(): string
     {
         $cover = <<<IMG
                     <meta property="og:image:secure_url" content="$this->cover" />
@@ -264,7 +269,7 @@ class MetaData
      *
      * @return string
      */
-    public function twitterMeta(): string
+    private function twitterMeta(): string
     {
         $link_exist = $this->link ? "<meta name=\"twitter:url\" content=\"$this->link\" />" : '';
         $cover_exist = $this->cover ? "<meta name=\"twitter:image\" content=\"$this->cover\" />" : '';
