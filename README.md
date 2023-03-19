@@ -181,7 +181,7 @@ description in search results below your title tag.
                 ->toArray();
     //array(1) {
     //  ["title"]=>"Welcome To Wepesi",
-    //  ["descriptions"]=>"Search engines typically show the meta description in search results below your title tag.",
+    //  ["description"]=>"Search engines typically show the meta description in search results below your title tag.",
     //  ["lang"]=>"fr",
     //  ["cover"]=>"https://www.domaine.com/cover.jpg",
     // }
@@ -202,7 +202,7 @@ The type help to define whether it's about an `article` or `website` or a `blog`
                 ->toArray();
     //array(1) {
     //  ["title"]=>"Welcome To Wepesi",
-    //  ["descriptions"]=>"Search engines typically show the meta description in search results below your title tag.",
+    //  ["description"]=>"Search engines typically show the meta description in search results below your title tag.",
     //  ["lang"]=>"sw",
     //  ["type"]=>"article",
     // }
@@ -225,7 +225,7 @@ article you should provide the link of the blog post, to help reach directly to 
                 ->toArray();
     //array(1) {
     //  ["title"]=>"Welcome To our Article",
-    //  ["descriptions"]=>"Description of the article",
+    //  ["description"]=>"Description of the article",
     //  ["lang"]=>"sw",
     //  ["type"]=>"article",
     //  ["link"]=>"https://www.domaine.com/article/welcom-to-wepesi",
@@ -258,7 +258,7 @@ Oly 2 Robots tags can be used
                 ->toArray();
     //array(1) {
     //  ["title"]=>"Welcome To our Article",
-    //  ["descriptions"]=>"About Description of the article",
+    //  ["description"]=>"About Description of the article",
     //  ["lang"]=>"sw",
     //  ["type"]=>"article",
     //  ["link"]=>"https://www.domaine.com/article/welcom-to-wepesi",
@@ -279,7 +279,7 @@ in case you don't need to index and follow the pages use:
                 ->toArray();
     //array(1) {
     //  ["title"]=>"Welcome To our Article",
-    //  ["descriptions"]=>"About Description of the article",
+    //  ["description"]=>"About Description of the article",
     //  ["tags"]=>["noindex","nofollow"],
     // }
 ```
@@ -307,7 +307,7 @@ It takes parameter as string if you have one keyword, by in other way u can pass
     //array(1) {
     //  ["title"]=>"Welcome To our Article",
 
-    //  ["descriptions"]=>"About Description of the article",
+    //  ["description"]=>"About Description of the article",
     //  ["keyword"]=>["HTML","CSS","JavaScript"]
     // }
 ```
@@ -326,7 +326,7 @@ website tells search engines that this URL is the main page and that the engines
                 ->toArray();
     //array(1) {
     //  ["title"]=>"Welcome To our Article",
-    //  ["descriptions"]=>"About Description of the article",
+    //  ["description"]=>"About Description of the article",
     //  ["canonical"]=>"https://www.domaine.com",
     // }
 ```
