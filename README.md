@@ -43,7 +43,7 @@ In case there is no element defined if will return en empty array and the build 
 All known metadata method has been define
 for: `title`,`lang`,`cover`,`author`,`descriptions`,`type`,`link`,`follow`,`keyword`,`index`,`nofollow`,`noIndex`,`canonical`.
 
-## generate the meta tag
+## Generate the meta tag
 
 The `generate()` or `toHtml()` method will help to generate the metadata tag to be display in your head html tags,
 
