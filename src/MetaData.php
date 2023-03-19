@@ -203,11 +203,16 @@ class MetaData
         return $this;
     }
 
+    public function generate(): ?string
+    {
+        return $this->toHtml();
+    }
+
     /**
      * Get the complete meta data to be displayed
      * @return string|null
      */
-    public function generate(): ?string
+    public function toHtml(): ?string
     {
         $tags = implode(',', $this->tags);
         $keyword = implode(",", $this->keywords);

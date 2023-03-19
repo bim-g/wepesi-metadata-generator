@@ -3,34 +3,45 @@
 Meta tags for SEO are key because they tell search engines what a page is about.
 Think of them as the first impression for all search engines.
 
-`Metadata generator` help you generate metadata for your web page with caring about the platform to be suppoterd. The oly thing is to provide information required.
+`Metadata generator` help you generate metadata for your web page with caring about the platform to be suppoterd. The
+oly thing is to provide information required.
 
-# Integration
-You can install via composer `composer require wepesi/metadata`.
+# Installation
+
+```bash
+composer require wepesi/metadata
+```
+
+# Usage
+
 The fist step required to is to call  `structure` a
 static method that give u the possibility to access the method defined.
 
 ```php
     use Wepesi\MetaData;
-    $meta = MetaData::structure();
+    $meta = MetaData::build();
 ```
 
-To get a structure of data to be display method are used 
-* `generate` :  will return an array object of field defined. 
-* `build` : generate a html meta tags that can be add to your web page,
+To get a structure of data to be display method are used
 
-In case there is no element defined if will return en empty array and the build will be without information. eg: No `title`,`description`.
+* `build()` :  will return an instance of the class.
+* `toArray()` :  will return an array object of field defined.
+* `toHtml()` and `generate` : will return a html meta tags that can be add to your web page,
+
+In case there is no element defined if will return en empty array and the build will be without information.
 
 ```php
   use Wepesi\MetaData;
-  MetaData::structure()->generate();
+  MetaData::build()->toArray();
   /**
       array(0) {
       }
     **/
 
 ```
-All known metadata method has been define for: `title`,`lang`,`cover`,`author`,`descriptions`,`type`,`link`,`follow`,`keyword`,`index`,`nofollow`,`noIndex`,`canonical`.
+
+All known metadata method has been define
+for: `title`,`lang`,`cover`,`author`,`descriptions`,`type`,`link`,`follow`,`keyword`,`index`,`nofollow`,`noIndex`,`canonical`.
 
 ### Description
 
@@ -43,7 +54,7 @@ visitors because they appear in the search engine results page (SERP) and in bro
 
 ```php
     use Wepesi\MetaData;
-    $structure= MetaData::structure()->title("Welcome To Wepesi")->generate();
+    $structure= MetaData::build()->title("Welcome To Wepesi")->toArray();
     /**
     array(1) {
         ["title"]=>"Welcome To Wepesi"
@@ -57,10 +68,10 @@ A meta lang is an HTML element that help to set the language of the webpage.
 
 ```php
     use Wepesi\MetaData;
-    $structure= MetaData::structure()
+    $structure= MetaData::build()
                 ->title("Welcome To Wepesi")
                 ->lang("fr")
-                ->generate();
+                ->toArray();
     /**
     array(1) {
       ["title"]=>"Welcome To Wepesi"
@@ -76,11 +87,11 @@ are `jpg` and `png`.
 
 ```php
     use Wepesi\MetaData;
-    $structure= MetaData::structure()
+    $structure= MetaData::build()
                 ->title("Welcome To Wepesi")
                 ->lang("en")
                 ->cover("https://www.domaine.com/cover.jpg")
-                ->generate();
+                ->toArray();
     //array(1) {
     //  ["title"]=>"Welcome To Wepesi"
     //  ["lang"]=>"en"
@@ -94,10 +105,10 @@ A meta author is an HTML element that help to provide more detail about the auth
 
 ```php
     use Wepesi\MetaData;
-    $structure= MetaData::structure()
+    $structure= MetaData::build()
                 ->title("Welcome To Wepesi")
                 ->author("Wepesi.")
-                ->generate();
+                ->toArray();
     //array(1) {
     //  ["title"]=>"Welcome To Wepesi"
     //  ["author"]=>"Wepesi"
@@ -111,12 +122,12 @@ description in search results below your title tag.
 
 ```php
     use Wepesi\MetaData;
-    $structure= MetaData::structure()
+    $structure= MetaData::build()
                 ->title("Welcome To Wepesi")
                 ->descriptions("Search engines typically show the meta description in search results below your title tag.")
                 ->lang("fr")
                 ->cover("https://www.domaine.com/cover.jpg")
-                ->generate();
+                ->toArray();
     //array(1) {
     //  ["title"]=>"Welcome To Wepesi",
     //  ["descriptions"]=>"Search engines typically show the meta description in search results below your title tag.",
@@ -132,12 +143,12 @@ The type help to define whether it's about an `article` or `website` or a `blog`
 
 ```php
     use Wepesi\MetaData;
-    $structure= MetaData::structure()
+    $structure= MetaData::build()
                 ->title("Welcome To Wepesi")
                 ->descriptions("Search engines typically show the meta description in search results below your title tag.")
                 ->lang("sw")
                 ->type("article")
-                ->generate();
+                ->toArray();
     //array(1) {
     //  ["title"]=>"Welcome To Wepesi",
     //  ["descriptions"]=>"Search engines typically show the meta description in search results below your title tag.",
@@ -153,14 +164,14 @@ article you should provide the link of the blog post, to help reach directly to 
 
 ```php
     use Wepesi\MetaData;
-    $structure= MetaData::structure()
+    $structure= MetaData::build()
                 ->title("Welcome To our Article")
                 ->descriptions("Description of the article")
                 ->lang("sw")
                 ->type("article")
                 ->link("https://www.domaine.com/article/welcom-to-wepesi")
                 ->cover("https://www.domaine.com/article-cover/cover.jpg")
-                ->generate();
+                ->toArray();
     //array(1) {
     //  ["title"]=>"Welcome To our Article",
     //  ["descriptions"]=>"Description of the article",
@@ -184,7 +195,7 @@ Oly 2 Robots tags can be used
 
 ```php
     use Wepesi\MetaData;
-    $structure= MetaData::structure()
+    $structure= MetaData::build()
                 ->title("Welcome To our Article")
                 ->descriptions("About Description of the article")
                 ->lang("sw")
@@ -193,7 +204,7 @@ Oly 2 Robots tags can be used
                 ->cover("https://www.domaine.com/article-cover/cover.jpg")
                 ->index()
                 ->follow()
-                ->generate();
+                ->toArray();
     //array(1) {
     //  ["title"]=>"Welcome To our Article",
     //  ["descriptions"]=>"About Description of the article",
@@ -209,12 +220,12 @@ in case you don't need to index and follow the pages use:
 
 ```php
     use Wepesi\MetaData;
-    $structure= MetaData::structure()
+    $structure= MetaData::build()
                 ->title("Welcome To our Article")
                 ->descriptions("About Description of the article")                
                 ->noindex()
                 ->nofollow()
-                ->generate();
+                ->toArray();
     //array(1) {
     //  ["title"]=>"Welcome To our Article",
     //  ["descriptions"]=>"About Description of the article",
@@ -237,11 +248,11 @@ It takes parameter as string if you have one keyword, by in other way u can pass
 
 ```php
     use Wepesi\MetaData;
-    $structure= MetaData::structure()
+    $structure= MetaData::build()
                 ->title("Welcome To our Article")
                 ->descriptions("About Description of the article")                
                 ->keyword(["HTML","CSS","JavaScript"])
-                ->generate();
+                ->toArray();
     //array(1) {
     //  ["title"]=>"Welcome To our Article",
 
@@ -249,6 +260,7 @@ It takes parameter as string if you have one keyword, by in other way u can pass
     //  ["keyword"]=>["HTML","CSS","JavaScript"]
     // }
 ```
+
 #### `canonical` method
 
 It’s used to indicate that there are other versions of this webpage. By implementing the canonical tag in the code, your
@@ -256,11 +268,11 @@ website tells search engines that this URL is the main page and that the engines
 
 ```php
     use Wepesi\MetaData;
-    $structure = MetaData::structure()
+    $structure = MetaData::build()
                 ->title("Welcome To our Article")
                 ->descriptions("About Description of the article")                
                 ->canonical("https://www.domaine.com")
-                ->generate();
+                ->toArray();
     //array(1) {
     //  ["title"]=>"Welcome To our Article",
     //  ["descriptions"]=>"About Description of the article",
@@ -270,11 +282,11 @@ website tells search engines that this URL is the main page and that the engines
 
 # BUILD
 
-The build method will help to generate the metadata tag to be display in your head html tags,
+The `generate()` or `toHtml()` method will help to generate the metadata tag to be display in your head html tags,
 
 ```php
     use Wepesi\MetaData;
-    $meta= MetaData::structure()
+    $meta= MetaData::build()
             ->title("Welcome To our Article")
             ->descriptions("About Description of the article")
             ->lang("sw")
@@ -283,7 +295,7 @@ The build method will help to generate the metadata tag to be display in your he
             ->cover("https://www.domaine.com/article-cover/cover.jpg")
             ->index()
             ->follow()
-            ->build();
+            ->toHtml();
 ```
 
 ```html
