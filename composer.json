@@ -3,7 +3,7 @@
   "description": "generate a metadata for your web page",
   "type": "library",
   "require": {
-    "php": "^8.0"
+    "php": "^7.4|^8.0"
   },
   "prefer-stable": true,
   "homepage": "https://github.com/bim-g/wepesi-metadata-generator",
