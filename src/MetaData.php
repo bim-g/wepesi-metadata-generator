@@ -129,7 +129,7 @@ class MetaData
 
     /**
      * Robots Meta Tag
-     * list a tags to be apply eg: follow,index,nofollow,noindex
+     * list a tags to be applied eg: follow,index,nofollow,noindex
      */
 
     /**
@@ -215,7 +215,7 @@ class MetaData
     }
 
     /**
-     * Get the complete meta data to be displayed
+     * Get the complete metadata to be displayed
      * @return string|null
      */
     public function toHtml(): ?string
