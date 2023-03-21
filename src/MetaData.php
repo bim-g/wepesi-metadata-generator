@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Wepesi;
 /**
  * * Meta tags for SEO are key because they tell search engines what a page is about.
@@ -148,10 +147,10 @@ class MetaData
 
     /**
      * Define keywords for search engines. eg: HTML,css,JavaScript
-     * @param array ...$keywords
+     * @param $keywords
      * @return MetaData
      */
-    public function keywords(string|array $keywords): MetaData
+    public function keywords($keywords): MetaData
     {
         $this->keywords = is_array($keywords) ? $keywords : [$keywords];
         return $this;
@@ -201,7 +200,7 @@ class MetaData
      * By implementing the canonical tag in the code,
      * your website tells search engines that this URL is the main page
      * and that the engines shouldn’t index other pages.
-     * @param string $canonical : https://doctawetu.com
+     * @param string $canonical. eg: https://doctawetu.com
      * @return $this
      */
     public function canonical(string $canonical): MetaData
