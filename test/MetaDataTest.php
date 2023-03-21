@@ -6,46 +6,51 @@ namespace Test;
 use PHPUnit\Framework\TestCase;
 use Wepesi\MetaData;
 
+/**
+ *
+ */
 class MetaDataTest extends TestCase
 {
     function testMetaDataObject()
     {
-        $this->assertIsObject(MetaData::structure());
+        $this->assertIsObject(MetaData::build());
         $this->assertIsObject(new MetaData());
     }
 
     function testMetaDataStructureIsArray()
     {
-        $meta = MetaData::structure()->generate();
+        $meta = MetaData::build()->toArray();
         $this->assertIsArray($meta);
     }
 
     function testMetaDataStructureHasArrayKeys()
     {
-        $meta = MetaData::structure()
-            ->title("Welcom Home")
-            ->descriptions("Test MetaData")
-            ->lang("fr")
-            ->cover("https://domaine.com/cover.jpg")
-            ->author("Ibrahim Mussa")
-            ->type("Website")
-            ->link("https://ibmussa.me")
+        $meta = MetaData::build()
+            ->title('Welcom Home')
+            ->description('Test MetaData')
+            ->lang('fr')
+            ->cover('https://domaine.com/cover.jpg')
+            ->author('Ibrahim Mussa')
+            ->type('Website')
+            ->link('https://ibmussa.me')
             ->follow()
-            ->keyword("metadata")
+            ->keywords('metadata')
             ->index()
-            ->structure();
+            ->toArray();
         $expected = [
-            "title" => 'Welcom Home',
-            "description" => 'Test MetaData',
-            "lang" => 'fr',
-            "cover" => 'https://domaine.com/cover.jpg',
-            "author" => 'Ibrahim Mussa',
-            "type" => 'Website',
-            "link" => 'https://ibmussa.me',
-            "keyword" => ['metadata'],
-            "tags" => ["follow","index"]
+            'title' => 'Welcom Home',
+            'description' => 'Test MetaData',
+            'lang' => 'fr',
+            'cover' => 'https://domaine.com/cover.jpg',
+            'author' => 'Ibrahim Mussa',
+            'type' => 'Website',
+            'link' => 'https://ibmussa.me',
+            'keywords' => ['metadata'],
+            'tags' => ["follow","index"],
+            'canonical' => null
+
         ];
-        // check if all wky are well defined
+        // check if all key are well-defined
         $this->assertArrayHasKey("title", $meta);
         $this->assertArrayHasKey("description", $meta);
         $this->assertArrayHasKey("lang", $meta);
@@ -54,24 +59,24 @@ class MetaDataTest extends TestCase
         $this->assertArrayHasKey("type", $meta);
         $this->assertArrayHasKey("link", $meta);
         $this->assertArrayHasKey("tags", $meta);
-        $this->assertArrayHasKey("keyword", $meta);
+        $this->assertArrayHasKey("keywords", $meta);
         // check expectation
         $this->assertEquals($expected, $meta);
     }
     function testMetaDataStructureNotHaveArrayKeys()
     {
-        $meta = MetaData::structure()
+        $meta = MetaData::build()
             ->title('Welcom Home')
-            ->descriptions('Test MetaData')
+            ->description('Test MetaData')
             ->lang('fr')
             ->cover('https://domaine.com/cover.jpg')
             ->author('Ibrahim Mussa')
             ->type('Website')
             ->link('https://ibmussa.me')
             ->follow()
-            ->keyword('metadata')
+            ->keywords('metadata')
             ->index()
-            ->structure();
+            ->toArray();
         $expected = [
             'title' => 'Welcom Home',
             'description' => 'Test MetaData',
@@ -95,21 +100,53 @@ class MetaDataTest extends TestCase
          */
         $this->assertNotEquals($expected, $meta);
     }
-    function testMetaHTMLMedataDataStructure()
-    {
-        $meta = MetaData::structure()
+
+    function testMetaDataStructureAsJSON(){
+        $meta = MetaData::build()
             ->title('Welcom Home')
-            ->descriptions('Test MetaData')
+            ->description('Test MetaData')
             ->lang('fr')
             ->cover('https://domaine.com/cover.jpg')
             ->author('Ibrahim Mussa')
             ->type('Website')
             ->link('https://ibmussa.me')
             ->follow()
-            ->keyword('metadata')
+            ->keywords('metadata')
             ->index()
-            ->build();
-        $metaExpex = <<<METADATA
+            ->toJson();
+        $expected = json_encode([
+            'title' => 'Welcom Home',
+            'description' => 'Test MetaData',
+            'lang' => 'fr',
+            'cover' => 'https://domaine.com/cover.jpg',
+            'author' => 'Ibrahim Mussa',
+            'type' => 'Website',
+            'link' => 'https://ibmussa.me',
+            'keywords' => ['metadata'],
+            'tags' => ['follow', 'index'],
+            'canonical' => null
+
+        ],true);
+        // check if is a json
+        $this->assertJson($meta);
+        // this json should be the same
+        $this->assertJsonStringEqualsJsonString($expected, $meta);
+    }
+    function testMetaHTMLMedataDataHTMLStructure()
+    {
+        $meta = MetaData::build()
+            ->title('Welcom Home')
+            ->description('Test MetaData')
+            ->lang('fr')
+            ->cover('https://domaine.com/cover.jpg')
+            ->author('Ibrahim Mussa')
+            ->type('Website')
+            ->link('https://ibmussa.me')
+            ->follow()
+            ->keywords('metadata')
+            ->index()
+            ->toHtml();
+        $metaExpectation = <<<METADATA
         <!-- Extra information -->
             <meta name="mobile-web-app-capable" content="yes" />
             <meta name="apple-mobile-web-app-title" content="yes" />
@@ -117,7 +154,7 @@ class MetaDataTest extends TestCase
             <meta name="author" content="Ibrahim Mussa">
             <meta name="robots" content="follow,index">
         
-            <!-- Open Grap data-->
+            <!-- Open Graph meta data-->
             <meta property="og:site_name" content="Doctawetu" />
             <meta property="og:title" content="Welcom Home" />
             <meta property="og:description" content="Test MetaData" />
@@ -130,7 +167,7 @@ class MetaDataTest extends TestCase
             <meta property="og:image:height" content="300">
             <meta property="og:local" content="fr" />
         
-            <!-- Twitter Metta Data -->
+            <!-- Twitter meta Data -->
             <meta name="twitter:card" content="summary" />
             <meta name="twitter:title" content="Welcom Home" />
             <meta name="twitter:description" content="Test MetaData" />
@@ -143,23 +180,23 @@ class MetaDataTest extends TestCase
         /**
          * check expectation
          */
-        $this->assertNotEquals($metaExpex, $meta);
+        $this->assertNotEquals($metaExpectation, $meta);
     }
-    function testNotMetaHTMLMedataDataStructure()
+    function testNotHTMLMedataDataStructure()
     {
-        $meta = MetaData::structure()
+        $meta = MetaData::build()
             ->title('Welcom Home')
-            ->descriptions('Test MetaData')
+            ->description('Test MetaData')
             ->lang('fr')
             ->cover('https://domaine.com/cover.jpg')
             ->author('Ibrahim Mussa')
             ->type('Website')
             ->link('https://ibmussa.me')
             ->follow()
-            ->keyword('metadata')
+            ->keywords('metadata')
             ->index()
-            ->build();
-        $metaExpex = <<<METADATA
+            ->toJson();
+        $metaExpectation = <<<METADATA
         <!-- Extra information -->
             <meta name="mobile-web-app-capable" content="yes" />
             <meta name="apple-mobile-web-app-title" content="yes" />
@@ -189,7 +226,6 @@ class MetaDataTest extends TestCase
         /**
          * check expectation
          */
-        $this->assertNotEquals($metaExpex, $meta);
+        $this->assertNotEquals($metaExpectation, $meta);
     }
-
 }
