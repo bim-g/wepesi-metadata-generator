@@ -3,18 +3,18 @@ use Wepesi\MetaData;
 
 require __DIR__."/../vendor/autoload.php";
 
-$meta = MetaData::structure()
+$meta = MetaData::build()
     ->title('Welcom Home')
-    ->descriptions('Test MetaData')
+    ->description('Test MetaData')
     ->lang('fr')
     ->cover('https://domaine.com/cover.jpg')
     ->author('Ibrahim Mussa')
     ->type('Website')
     ->link('https://ibmussa.me')
     ->follow()
-    ->keyword('metadata')
+    ->keywords('metadata')
     ->index()
-    ->build();
+    ->toHtml();
 // output
 /**
  * <!-- Extra information -->
